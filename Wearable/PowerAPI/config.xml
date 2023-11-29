@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:tizen="http://tizen.org/ns/widgets" id="http://yourdomain/PowerAPI" version="1.0.0" viewmodes="maximized">
+    <tizen:application id="05qd6khEXs.PowerAPI" package="05qd6khEXs" required_version="7.0"/>
+    <content src="index.html"/>
+    <feature name="http://tizen.org/feature/screen.size.all"/>
+    <icon src="icon.png"/>
+    <name>PowerAPI</name>
+    <tizen:privilege name="http://tizen.org/privilege/power"/>
+    <tizen:profile name="wearable"/>
+</widget>
