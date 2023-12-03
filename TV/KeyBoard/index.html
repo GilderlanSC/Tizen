@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=1920, height=1080" />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/main.css">
+    <meta charset="UTF-8">
+    <title>IME</title>
+    <script src="$WEBAPIS/webapis/webapis.js"></script>
+</head>
+
+<body>
+    <header class="main-header">
+        <h1 class="appName">IME</h1>
+        <h2 class="appVersion">2.0.0</h2>
+        <div class="tvInfo">
+            <p class="firmware"></p>
+            <p class="model"></p>
+        </div>
+    </header>
+    <section class="main">
+        <section id="main">
+            <input data-list-item type="text" id="text-input" placeholder="write here...">
+
+            <h1>User input will be displayed here:</h1>
+            <textarea id="output"></textarea>
+        </section>
+
+    </section>
+    <section class="logs">
+        <h2>Logs:</h2>
+        <div data-list-item class="logsContainer">
+
+        </div>
+    </section>
+    <section class="info">
+        <section class="info-container">
+            <section>
+                <header>
+                    <h2>Info</h2>
+                </header>
+
+                <p>This application demonstrates usage of Tizen IME - the on-screen keyboard.</p>
+
+                <h2>Manual</h2>
+                <p>Use TV remote controller to navigate to text input field and press ENTER. IME will appear.</p>
+                <p>Type whatever you want and choose DONE.</p>
+            </section>
+
+        </section>
+    </section>
+    <section class="buttons" id="buttons">
+        <button data-list-item id="clear">Clear text output</button>
+
+        <button data-list-item class="toggle-info">Show/hide info</button>
+    </section>
+
+    <script src="js/utils.js"></script>
+    <script src="js/keyhandler.js"></script>
+    <script src="js/logger.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/init.js"></script>
+
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>
