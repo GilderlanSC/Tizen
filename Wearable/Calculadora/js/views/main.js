@@ -1,28 +1,5 @@
-/*
- *      Copyright (c) 2014 Samsung Electronics Co., Ltd
- *
- *      Licensed under the Flora License, Version 1.1 (the "License");
- *      you may not use this file except in compliance with the License.
- *      You may obtain a copy of the License at
- *
- *              http://floralicense.org/license/
- *
- *      Unless required by applicable law or agreed to in writing, software
- *      distributed under the License is distributed on an "AS IS" BASIS,
- *      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *      See the License for the specific language governing permissions and
- *      limitations under the License.
- */
-
-/*global define, document, window,tizen, console*/
-
 /**
- * Main view module.
- *
- * @module views/main
- * @requires {@link models/errors}
- * @requires {@link models/model}
- * @namespace views/main
+ * Módulo principal
  */
 define({
     name: 'views/main',
@@ -34,66 +11,34 @@ define({
         'use strict';
 
         /**
-         * Delay after which longtap event is executed.
-         *
-         * @memberof views/main
-         * @private
-         * @const {number}
+         * Delay 
          */
         var LONGTAP_DELAY = 400,
 
             /**
-             * Interval of processing longtap event.
-             *
-             * @memberof views/main
-             * @private
-             * @const {number}
+             * Intervalo de processamento
              */
             LONGTAP_REPEAT_INTERVAL = 20,
 
             /**
-             * Maximum count of digits in the equation.
-             *
-             * @memberof views/main
-             * @private
-             * @const {number}
+             * Númeor máximo de dígitos
              */
             MAX_DIGITS = 9,
 
-            /**
-             * Minimum number of digits in the equation after which font is
-             * decreased.
-             *
-             * @memberof views/main
-             * @private
-             * @const {number}
-             */
             SMALL_FONT_THRESHOLD = 7,
 
             /**
-             * Separator.
-             *
-             * @memberof views/main
-             * @private
-             * @const {string}
+             * Separador
              */
             SEPARATOR = ',',
 
             /**
-             * Container for timers of longtap events.
-             *
-             * @memberof views/main
-             * @private
-             * @const {object}
+             * Container para temporizadores
              */
             longTapRepeatTimers = {},
 
             /**
-             * Object that maps calculator signs to the HTML version.
-             *
-             * @memberof views/main
-             * @private
-             * @type {object}
+             * Mapeamento de sinais para HTML
              */
             operatorDisplays = {
                 '+': '+',
@@ -103,11 +48,7 @@ define({
             },
 
             /**
-             * Object that maps strings to the math operators.
-             *
-             * @memberof views/main
-             * @private
-             * @type {object}
+             * Mapeamento de strings para operadores
              */
             operatorKeys = {
                 'add': '+',
@@ -117,66 +58,38 @@ define({
             },
 
             /**
-             * Result element.
-             *
-             * @memberof views/main
-             * @private
-             * @type {HTMLElement}
+             * resultado elemento
              */
             resultElement = null,
 
             /**
-             * Result value element.
-             *
-             * @memberof views/main
-             * @private
-             * @type {HTMLElement}
+             * valor do elemento resultado
              */
             resultValueElement = null,
 
             /**
-             * Equation element.
-             *
-             * @memberof views/main
-             * @private
-             * @type {HTMLElement}
+             * Elemento equação
              */
             equationElement = null,
 
             /**
-             * Display element.
-             *
-             * @memberof views/main
-             * @private
-             * @type {HTMLElement}
+             * Elemento display
              */
             displayElement = null,
 
             /**
              * Error flag.
-             *
-             * @memberof views/main
-             * @private
-             * @type {boolean}
              */
             error = false,
 
             /**
-             * Calculation success flag.
-             *
-             * @memberof views/main
-             * @private
-             * @type {boolean}
+             * Flag de sucesso na operação
+
              */
             result = false;
 
         /**
-         * Handles touch events.
-         * Disables multitouch.
-         *
-         * @memberof views/main
-         * @private
-         * @param {Event} ev
+         * Lida com toque
          */
         function filterTap(ev) {
             // disable multitouch
@@ -187,11 +100,7 @@ define({
         }
 
         /**
-         * Clears registered timers.
-         *
-         * @memberof views/main
-         * @private
-         * @param {string} key
+         * Apagar temporizadores registrados
          */
         function clearLongTapRepeatTimers(key) {
             if (longTapRepeatTimers['start' + key]) {
@@ -206,20 +115,14 @@ define({
         }
 
         /**
-         * Returns true for result, false for empty result.
-         *
-         * @memberof views/main
-         * @private
-         * @returns {boolean}
+         * Retorna verdadeiro para resultado, e falso quando vazio
          */
         function isResultVisible() {
             return result;
         }
 
         /**
-         * Clears result element.
-         *
-         * @memberof views/main
+         * Limpa Elemento resultado
          * @private
          */
         function clear() {
@@ -229,9 +132,7 @@ define({
         }
 
         /**
-         * Clears result element and flags.
-         *
-         * @memberof views/main
+         * Limpa Elemento resultado e flags
          * @private
          */
         function clearResult() {
@@ -240,15 +141,6 @@ define({
             error = false;
         }
 
-
-        /**
-         * Shows string in result element.
-         *
-         * @memberof views/main
-         * @private
-         * @param {string} result
-         * @param {boolean} error Error flag.
-         */
         function show(result, error) {
             if (result === '') {
                 return clear();
@@ -273,11 +165,7 @@ define({
         }
 
         /**
-         * Shows error in result element.
-         *
-         * @memberof views/main
-         * @private
-         * @param {string} error
+         * Mostra error em Elemento resultado
          */
         function showError(error) {
             show(error, true);
@@ -285,11 +173,7 @@ define({
         }
 
         /**
-         * Handles pressing digit button.
-         *
-         * @memberof views/main
-         * @private
-         * @param {object} key
+         * Lida com precionamento de dígitos
          */
         function pushDigits(key) {
             if (!model.addDigit(key)) {
@@ -298,14 +182,7 @@ define({
         }
 
         /**
-         * Adds separators to matched string.
-         *
-         * @memberof views/main
-         * @private
-         * @param {string} match
-         * @param {string} sign
-         * @param {string} p1
-         * @returns {string}
+         * Adiciona separadores
          */
         function regexpReplacer(match, sign, p1) {
             var p1array = null;
@@ -320,12 +197,7 @@ define({
 
 
         /**
-         * Adds separators to the specified equation.
-         *
-         * @memberof views/main
-         * @private
-         * @param {string} equationString
-         * @returns {string} Equation with separators.
+         * Adiciona separadores para equações
          */
         function addSeparators(equationString) {
             var negative = false;
@@ -342,12 +214,7 @@ define({
         }
 
         /**
-         * Shows result in result element.
-         *
-         * @memberof views/main
-         * @private
-         * @param {string} res Result.
-         * @param {boolean} err Error flag.
+         * Mostra resultado em Elemento resultado
          */
         function showResult(res, err) {
             error = err || false;
@@ -359,10 +226,7 @@ define({
         }
 
         /**
-         * Calculates equation and displays result on the screen.
-         *
-         * @memberof views/main
-         * @private
+         * Calcula resultado e o mostra
          */
         function calculate() {
             var calculationResult = '';
@@ -388,11 +252,7 @@ define({
         }
 
         /**
-         * Displays given equation.
-         *
-         * @memberof views/main
-         * @private
-         * @param {string} equation
+         * Mostra equação dada
          */
         function showEquation(equation) {
             var e = 0,
@@ -427,24 +287,16 @@ define({
         }
 
         /**
-         * Refreshes equation field.
-         *
-         * @memberof views/main
-         * @private
+         * Atualiza campo de equação
          */
         function refreshEquation() {
             showEquation(model.getEquation());
         }
 
         /**
-         * Handles press key event.
-         *
-         * @memberof views/main
-         * @private
-         * @param {object} key
+         * Lida com clique de dígitos (Keys)
          */
         function processKey(key) {
-            /*jshint maxcomplexity:11 */
             var keys = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
             if (isResultVisible()) {
@@ -480,10 +332,7 @@ define({
         }
 
         /**
-         * Registers view event listeners.
-         *
-         * @memberof views/main
-         * @private
+         * Registra view event listeners.
          */
         function bindEvents() {
             var numpad = document.getElementById('numpad');
@@ -560,18 +409,7 @@ define({
         }
 
         /**
-         * Initializes UI module.
-         *
-         * Following actions are performed:
-         * - assignment of the most significant UI elements to the variables
-         * - events binding
-         * - preloading images
-         * - clearing error state
-         * - clearing result state
-         * - disabling multitouch
-         *
-         * @memberof views/main
-         * @public
+         * Inicialização do módulo UI
          */
         function init() {
             resultElement = document.getElementById('result');
