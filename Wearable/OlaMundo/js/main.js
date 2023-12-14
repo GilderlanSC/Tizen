@@ -11,7 +11,7 @@ window.onload = function () {
 	}
     });
 
-    // Sample code
+ 
     var textbox = document.querySelector('.contents');
     textbox.addEventListener("click", function(){
     	box = document.querySelector('#textbox');
